@@ -1,7 +1,7 @@
 RSpec.describe "Users", type: :request do
   describe "GET /users/:id" do
     let(:user) { FactoryBot.create :user }
-    subject { get user_path(user) }
+    subject { get user_path(user), headers: { Authorization: "Token #{user.api_token}" } }
     it 'success' do
       subject
       expect(response).to be_success
