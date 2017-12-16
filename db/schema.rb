@@ -12,6 +12,15 @@
 
 ActiveRecord::Schema.define(version: 20171216063917) do
 
+  create_table "articles", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.string "title", null: false
+    t.text "body", null: false
+    t.bigint "user_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_articles_on_user_id"
+  end
+
   create_table "users", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string "email", null: false
     t.string "crypted_password", null: false
@@ -23,4 +32,5 @@ ActiveRecord::Schema.define(version: 20171216063917) do
     t.index ["email"], name: "index_users_on_email", unique: true
   end
 
+  add_foreign_key "articles", "users"
 end
