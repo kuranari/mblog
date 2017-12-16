@@ -22,6 +22,11 @@ RSpec.describe "Users", type: :request do
         expect(response).to be_success
       end
 
+      it 'Api-Tokenが設定される' do
+        subject
+        expect(response.headers['X-Api-Token']).to be_present
+      end
+
       it 'ユーザー数が増える' do
         expect {
           subject

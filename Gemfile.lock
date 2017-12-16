@@ -199,6 +199,7 @@ PLATFORMS
 
 DEPENDENCIES
   active_model_serializers (~> 0.10.0)
+  bcrypt (~> 3.1.7)
   byebug
   capybara (~> 2.13)
   factory_bot_rails
