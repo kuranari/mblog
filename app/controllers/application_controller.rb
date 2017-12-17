@@ -1,6 +1,7 @@
 class ApplicationController < ActionController::Base
   include Pundit
   before_action :authenticate
+  rescue_from Pundit::NotAuthorizedError, with: :user_not_authorized
 
   def current_user
     @current_user
@@ -20,5 +21,9 @@ class ApplicationController < ActionController::Base
 
   def render_unauthorized
     render json: { message: 'token invalid' }, status: :unauthorized
+  end
+
+  def user_not_authorized
+    render json: { message: 'You are not authorized to perform this action.' }, status: :unauthorized
   end
 end
