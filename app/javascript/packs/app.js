@@ -1,10 +1,15 @@
 import React from 'react'
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import { TextField, RaisedButton, Paper } from 'material-ui';
+import { fetchApi } from './lib';
+import ArticleList from './article';
 
 const App = () => (
   <MuiThemeProvider>
-    <SessionForm />
+    <div>
+      <SessionForm />
+      <ArticleList />
+    </div>
   </MuiThemeProvider>
 )
 export default App;
