@@ -8,8 +8,13 @@ git clone git@github.com:kuranari/mblog.git
 
 ./bin/setup
 # 必要に応じてconfig/database.ymlの内容を修正し、./bin/setupを再実行する
+
+bin/rails s
 ```
 
 ## WebAPIの仕様について
 
 [wiki](https://github.com/kuranari/mblog/wiki)を参照して下さい
+
+## チュートリアル
+[チュートリアル](https://github.com/kuranari/mblog/wiki/チュートリアル) を用意しています。
