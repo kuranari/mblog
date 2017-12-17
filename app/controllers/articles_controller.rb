@@ -2,17 +2,21 @@ class ArticlesController < ApplicationController
   skip_before_action :authenticate, only: [:index, :show]
   def index
     articles = Article.preload(:user, :favorite_users).all
+    authorize articles
 
     render json: articles
   end
 
   def show
     article = Article.preload(:user, :favorite_users).find(params[:id])
+    authorize article
+
     render json: article
   end
 
   def create
     article = current_user.articles.new(article_params)
+    authorize article
 
     if article.save
       render json: article
@@ -23,6 +27,8 @@ class ArticlesController < ApplicationController
 
   def update
     article = Article.find(params[:id])
+    authorize article
+
     if article.update(article_params)
       render json: article
     else
@@ -32,6 +38,8 @@ class ArticlesController < ApplicationController
 
   def destroy
     article = Article.find(params[:id])
+    authorize article
+
     article.destroy
 
     head :no_content
