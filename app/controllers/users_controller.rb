@@ -10,8 +10,7 @@ class UsersController < ApplicationController
     user = User.new(user_params)
 
     if user.save
-      response.headers["X-Api-Token"] = user.api_token
-      render json: user
+      render json: { api_token: user.api_token }
     else
       render json: { message: user.errors.full_messages.join("\n") }, status: :unprocessable_entity
     end

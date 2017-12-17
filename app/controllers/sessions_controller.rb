@@ -6,8 +6,7 @@ class SessionsController < ApplicationController
       if error
         render json: { message: error }, status: :unauthorized
       else
-        response.headers["X-Api-Token"] = user.api_token
-        render json: user
+        render json: { api_token: user.api_token }
       end
     end
   end
