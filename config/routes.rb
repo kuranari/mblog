@@ -4,6 +4,6 @@ Rails.application.routes.draw do
     delete 'favorites' => 'favorites#destroy'
   end
 
-  resources :users, only: [:show, :create]
   post 'login' => 'sessions#create'
+  post 'signup' => 'users#create'
 end

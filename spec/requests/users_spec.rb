@@ -1,17 +1,8 @@
 RSpec.describe "Users", type: :request do
-  describe "GET /users/:id" do
-    let(:user) { FactoryBot.create :user }
-    subject { get user_path(user), headers: { Authorization: "Token #{user.api_token}" } }
-    it 'success' do
-      subject
-      expect(response).to be_success
-    end
-  end
-
-  describe "POST /users" do
+  describe "POST /signup" do
     context '適切なパラメータを与えた場合' do
       subject {
-        post users_path, params: {
+        post signup_path, params: {
           email: 'sample@sample.com',
           password: 'a' * 8,
         }
@@ -20,11 +11,6 @@ RSpec.describe "Users", type: :request do
       it 'success' do
         subject
         expect(response).to be_success
-      end
-
-      it 'Api-Tokenが設定される' do
-        subject
-        expect(response.headers['X-Api-Token']).to be_present
       end
 
       it 'ユーザー数が増える' do
@@ -36,7 +22,7 @@ RSpec.describe "Users", type: :request do
 
     context 'パラメータが不適切な場合' do
       subject {
-        post users_path, params: {
+        post signup_path, params: {
           email: 'not_include_domain',
           password: 'short'
         }
