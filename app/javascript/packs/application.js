@@ -9,11 +9,11 @@
 
 import React from 'react'
 import ReactDOM from 'react-dom'
-import Hello from './hello_react';
+import App from './app';
 
 document.addEventListener('DOMContentLoaded', () => {
   ReactDOM.render(
-    <Hello name="React" />,
+    <App />,
     document.body.appendChild(document.createElement('div')),
   )
 })
