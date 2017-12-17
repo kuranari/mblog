@@ -1,24 +1,15 @@
-# README
+これは簡易ブログシステムのWebAPI開発用リポジトリです。
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+現時点でできることは、記事の`閲覧`・`投稿`・`編集`・`削除`・`お気に入り`・`お気に入り解除`です。
 
-Things you may want to cover:
+## 環境構築方法
+```
+git clone git@github.com:kuranari/mblog.git
 
-* Ruby version
+./bin/setup
+# 必要に応じてconfig/database.ymlの内容を修正し、./bin/setupを再実行する
+```
 
-* System dependencies
+## WebAPIの仕様について
 
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+[wiki](https://github.com/kuranari/mblog/wiki)を参照して下さい
