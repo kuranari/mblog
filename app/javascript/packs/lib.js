@@ -4,6 +4,11 @@ export function fetchApi(url, params = {}) {
     'Content-Type': 'application/json',
   };
 
+  const apiToken = getApiToken();
+  if (apiToken) {
+    defaultHeaders['Authorization'] = `Bearer ${apiToken}`
+  }
+
   return fetch(url, {
     headers: defaultHeaders,
     ...params
@@ -22,4 +27,14 @@ export function fetchApi(url, params = {}) {
     }
     return json;
   })
+}
+
+
+const API_TOKEN_KEY = 'API_TOKEN';
+export function setApiToken(token) {
+  localStorage[API_TOKEN_KEY] = token;
+}
+
+export function getApiToken() {
+  return localStorage[API_TOKEN_KEY];
 }
