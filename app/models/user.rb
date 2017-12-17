@@ -4,6 +4,7 @@ class User < ApplicationRecord
 
   has_many :articles, dependent: :destroy
   has_many :favorites, dependent: :destroy
+  has_many :favorite_articles, through: :favorites, source: :article
 
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
   validates :email, presence: true, uniqueness: true, format: { with: VALID_EMAIL_REGEX }

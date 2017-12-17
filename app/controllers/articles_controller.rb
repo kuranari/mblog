@@ -1,12 +1,13 @@
 class ArticlesController < ApplicationController
+  skip_before_action :authenticate, only: [:index, :show]
   def index
-    articles = Article.all
+    articles = Article.preload(:user, :favorite_users).all
 
     render json: articles
   end
 
   def show
-    article = Article.find(params[:id])
+    article = Article.preload(:user, :favorite_users).find(params[:id])
     render json: article
   end
 
