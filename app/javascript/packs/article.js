@@ -38,7 +38,7 @@ export class ArticleForm extends React.Component {
       method: 'POST',
       body: JSON.stringify(this.state),
     }).then(response => {
-      console.log(response)
+      this.props.onSubmitSuccess();
     }).catch(error => {
       alert(error.message)
     })
@@ -80,11 +80,15 @@ export class ArticleList extends React.Component {
     this.state = {
       articles: [],
     }
+    this.fetchArticles = this.fetchArticles.bind(this);
   }
 
   componentWillMount() {
-    fetchApi('/articles', {
-    }).then(articles => {
+    this.fetchArticles();
+  }
+
+  fetchArticles() {
+    fetchApi('/articles').then(articles => {
       this.setState({ articles })
     }).catch(error => {
       console.log(error)
@@ -101,6 +105,8 @@ export class ArticleList extends React.Component {
     return (
       <div>
         <div>Artilecs</div>
+        <ArticleForm onSubmitSuccess={this.fetchArticles} />
+
         { this.renderArticles() }
       </div>
     );
