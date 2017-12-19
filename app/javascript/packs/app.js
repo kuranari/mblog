@@ -3,15 +3,24 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import { TextField, RaisedButton } from 'material-ui';
 import { BrowserRouter, Route, Link, Redirect } from 'react-router-dom'
 
-import { fetchApi, getApiToken } from './lib';
-import { ArticleList, ArticleForm } from './article';
+import { fetchApi, getApiToken, setApiToken } from './lib';
+import { ArticleList } from './article';
 import Signup from './signup';
 
 class App extends React.Component {
-  componentWillMount() {
-    const apiToken = getApiToken();
-    this.setState({ apiToken });
+  constructor(props) {
+    super(props);
+    this.state = { apiToken: null }
   }
+  componentWillMount() {
+    fetchApi('/articles').then(() => {
+      const apiToken = getApiToken();
+      this.setState({ apiToken });
+    }).catch(() => {
+      const apiToken = setApiToken(null);
+    })
+  }
+
 
   isLoggedIn() {
     return !!this.state.apiToken;
@@ -19,16 +28,11 @@ class App extends React.Component {
 
   render() {
     return (
-      <BrowserRouter>
-        <MuiThemeProvider>
+      <MuiThemeProvider>
         <div>
-          <Route exact path='/' component={ArticleList} />
-          {
-            this.isLoggedIn() ? null : <Redirect to='/signup'/>
-          }
+          { this.isLoggedIn() ? <ArticleList /> : <Signup /> }
         </div>
-        </MuiThemeProvider>
-      </BrowserRouter>
+      </MuiThemeProvider>
     );
   }
 }

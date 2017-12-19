@@ -2,15 +2,22 @@ import React from 'react'
 import {Card, CardActions, CardHeader, CardText} from 'material-ui/Card';
 import FlatButton from 'material-ui/FlatButton';
 import { TextField, RaisedButton } from 'material-ui';
+import IconButton from 'material-ui/IconButton';
+
 import { fetchApi, setApiToken } from './lib';
 
-const Article = ({ id, user, title, body }) => (
+
+const Article = ({ id, user, title, body, onDelete }) => (
   <Card>
     <CardHeader
       title={title}
+      subtitle={user.email}
       actAsExpander={true}
       showExpandableButton={true}
     />
+    <CardActions>
+      <FlatButton label="削除" onClick={() => onDelete(id)} />
+    </CardActions>
     <CardText expandable={true}>
       {body}
     </CardText>
@@ -81,6 +88,7 @@ export class ArticleList extends React.Component {
       articles: [],
     }
     this.fetchArticles = this.fetchArticles.bind(this);
+    this.deleteArticle = this.deleteArticle.bind(this);
   }
 
   componentWillMount() {
@@ -95,18 +103,29 @@ export class ArticleList extends React.Component {
     })
   }
 
+  deleteArticle(id) {
+    fetchApi(`/articles/${id}`, {
+      method: 'DELETE',
+    }).then(response => {
+      this.fetchArticles();
+    }).catch(error => {
+      alert(error.message)
+    })
+  }
+
   renderArticles() {
     return this.state.articles.map(article => (
-      <Article key={article.id} {...article} />
+      <Article key={article.id} onDelete={this.deleteArticle} {...article} />
     ))
   }
 
   render() {
     return (
       <div>
-        <div>Artilecs</div>
+        <h2>新規記事投稿フォーム</h2>
         <ArticleForm onSubmitSuccess={this.fetchArticles} />
 
+        <h2>記事一覧</h2>
         { this.renderArticles() }
       </div>
     );

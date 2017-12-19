@@ -22,12 +22,11 @@ export default class Signup extends React.Component {
   };
 
   onSubmit() {
-    fetchApi('/users', {
+    fetchApi('/signup', {
       method: 'POST',
       body: JSON.stringify(this.state),
     }).then(response => {
       setApiToken(response.api_token);
-      location.href = '/';
     }).catch(error => {
       alert(error.message)
     })
@@ -36,6 +35,7 @@ export default class Signup extends React.Component {
   render() {
     return (
       <div>
+        <h2>新規ユーザー登録</h2>
         <div>
           <TextField
             floatingLabelText="email"
