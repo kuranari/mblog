@@ -1,0 +1,36 @@
+version: 2
+jobs:
+  test:
+    working_directory: ~/mblog
+    docker:
+      - image: circleci/ruby:2.5.0-node
+        environment:
+          DATABASE_HOST: 127.0.0.1
+          DATABASE_USER: root
+          RAILS_ENV: test
+      - image: circleci/mysql:5.6
+
+    steps:
+      - checkout
+      - restore_cache:
+          keys:
+            - mblog-{{ checksum "Gemfile.lock" }}
+
+      - run:
+          name: Run bundle install
+          command: bundle install --jobs=4 --retry=3 --path=vendor/bundle --clean
+
+      - save_cache:
+          key: mblog-{{ checksum "Gemfile.lock" }}
+          paths:
+            - vendor/bundle
+
+      - run: cp config/database.yml.sample config/database.yml
+      - run: bundle exec rake db:setup
+      - run: bundle exec rspec
+
+workflows:
+  version: 2
+  test:
+    jobs:
+      - test
