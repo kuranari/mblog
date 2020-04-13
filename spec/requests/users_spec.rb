@@ -10,7 +10,7 @@ RSpec.describe "Users", type: :request do
 
       it 'success' do
         subject
-        expect(response).to be_success
+        expect(response).to be_successful
       end
 
       it 'ユーザー数が増える' do
@@ -30,7 +30,7 @@ RSpec.describe "Users", type: :request do
 
       it 'failure' do
         subject
-        expect(response).not_to be_success
+        expect(response).not_to be_successful
       end
 
       it 'ユーザー数が増えない' do
