@@ -5,6 +5,8 @@ services:
     command: rails s -p 3000 -b "0.0.0.0"
     ports:
       - 3000:3000
+    volumes:
+      - .:/mblog
     environment:
       DATABASE_HOST: db
     depends_on:
