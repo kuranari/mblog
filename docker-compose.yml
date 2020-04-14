@@ -13,5 +13,7 @@ services:
       - db
   db:
     image: mysql:5.7.29
+    volumes:
+      - ./tmp/db/data:/var/lib/mysql
     environment:
       MYSQL_ALLOW_EMPTY_PASSWORD: 'yes'
