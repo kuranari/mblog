@@ -1,18 +1,13 @@
 NAME=mblog
 
 build:
-	docker build -t $(NAME) .
+	docker-compose build
 
 run:
-	docker run --rm \
-		--name $(NAME) \
-		-p 3000:3000 \
-		-e DATABASE_HOST=host.docker.internal \
-		-d \
-		$(NAME)
+	docker-compose up -d
 
 stop:
-	docker stop $(NAME)
+	docker-compose stop
 
-logs:
-	docker logs $(NAME) -f
+restart:
+	docker-compose restart
